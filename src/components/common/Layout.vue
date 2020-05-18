@@ -5,7 +5,7 @@
             <slot name="header"
                   :title = "data1"
                   :join="data2"
-                  :login="data3" ></slot>
+                  :login="data3"></slot>
         </header>
         <aside id="sidebar">
             <slot name="sidebar"></slot>

@@ -12,6 +12,7 @@
             <input type="password" placeholder="Enter Password" name="psw" required>
 
             <router-link to="/calculator"><button @click="login" type="submit">Login</button></router-link>
+
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>
@@ -30,7 +31,7 @@
         name: ":login",
         methods:{
             login: ()=>{
-                "../components/common/calculator"
+
 
             }
         }
