@@ -1,13 +1,13 @@
 <template>
     <div>
         <h2>회원 가입</h2>
-        <form method="post">
+
             <div class="container">
                 <label ></label>
-                <input type="text"  v-model="userid" placeholder="Enter Username" name="userid" required>
+                <input type="text"  v-model="userid" placeholder="Enter Username" id="userid" required>
                 <h3>입력한 아이디 : {{userid}}</h3>
                 <label ><b>Password</b></label>
-                <input type="password" v-model="passwd" placeholder="Enter Password" name="password" required>
+                <input type="password" v-model="passwd" placeholder="Enter Password" id="password" required>
                 <h3>입력한 비번 : {{passwd}}</h3>
 
                 <div id='example-3'> 취미
@@ -64,7 +64,7 @@
                 <button type="button" class="cancelbtn">Cancel</button>
                 <span class="psw">Forgot <a href="#">password?</a></span>
             </div>
-        </form>
+
     </div>
 </template>
 

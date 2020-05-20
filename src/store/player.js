@@ -1,25 +1,59 @@
+import axios from 'axios'
+import header from "vuetify/lib/components/VDataTable/mixins/header";
+
+
 const  state = {
+    player :{},
+    fail: false,
+    auth : false
+}
 
-}
-const actions = {
-    login ({commit}){commit('login')},
-    join ({commit}) {commit('join')},
-}
-const getters ={
-
-}
 const  mutations ={
-    join () {
+    LOGIN_COMIT (state,data) {
+        state.auth = true
+        state.player =data.player
+        localStorage.setItem('token',data.token)
+        localStorage.setItem('playerId',data.player.playerId)
+        if (data.player.auth === 'USER'){
+            alert('일반사용자')
+            // 일반사용자
+        }else {
+            alert('관리자')
+            // 관리자
+        }
 
+    },
+    join () {
         alert('가입')
     },
 
-    login () {
-        alert('로그인')
 
-    }
 
 }
+
+const getters ={
+
+}
+const actions = {
+
+    async login ({commit}){
+        const headers = {
+            'Content-Type': 'text/plain'
+        };
+        axios.post('',player,header)
+            .then(({data})=>{
+
+                commit('LOGIN_COMIT',data)
+            })
+            .catch(()=>{
+                state.fail =true
+            })
+    },
+    async join ({commit}){
+        commit('join')
+    },
+}
+
 export default {
     name:'player',
     namespace:true,

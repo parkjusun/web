@@ -36,18 +36,19 @@
     export default {
         data(){
             return{
-            userid:'',
-            passwd:''
+                userid:'',
+                passwd:''
             }
         },
 
         methods: {
+            login(){
+                this.$store.dispatch('palyser/login',{playerId:this.userid,backNo:this.passwd})
+            },
             moveToPasswd(){
                 document.getElementById('passwd').focus()
             },
-            login(){
-                alert('로그인')
-            }
+
         }
 
     }
