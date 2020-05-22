@@ -4,8 +4,9 @@
         <header>
             <slot name="header"
                   :title = "data1"
-                  :join="data2"
-                  :login="data3"></slot>
+                  :join="data3"
+                  :login="data2"
+                  :logout="data7"></slot>
         </header>
         <aside id="sidebar">
             <slot name="sidebar"></slot>
@@ -32,7 +33,8 @@
                 data2 : '로그인',
                 data3: '회원가입',
                 data4: '축구경기일정 검색',
-                data5: '(사)축구선수협회'
+                data5: '(사)축구선수협회',
+                data7: '로그아웃',
             }
         }
     }

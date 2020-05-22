@@ -1,23 +1,38 @@
 <template>
     <div id="app">
+        <div v-if="auth == true">
         <Layout>
-            <template #header="self">
-               <router-link to="/home"><h1 id="main_title">{{self.title}}</h1></router-link>
-                <router-link to="/join"><span id="join">{{self.join}}</span></router-link>
-                <router-link @click="aa" to="/login"><span id="login">{{self.login}}</span></router-link>
 
+            <template #header="self">
+                <router-link to="/home"><h1 class="main_title">{{self.title}}</h1></router-link>
+                <span @click="logout" class="login">{{self.logout}}</span>
             </template>
             <template #sidebar="self" >
                 {{self.menu}}
                 <ul class="menu">
-
-                       <li v-for="i of sidebars" :key="i.menu" >
-                           <router-link :to="{path:i.link}"> {{i.menu}}</router-link>
-<!--                           <a @click="aa(i.menu)"> {{i.menu}}</a>-->
-                       </li>
-
+                    <li v-for="i of sidebars" :key="i.menu" >
+                        <router-link :to="{path:i.link}"> {{i.menu}}</router-link>
+                        <!--                           <a @click="aa(i.menu)"> {{i.menu}}</a>-->
+                    </li>
                 </ul>
             </template>
+
+        </Layout>
+        </div>
+            <!--로그인성공-->
+
+        <div v-if="auth == false">
+        <Layout>
+             <template #header="self">
+               <router-link to="/home"><h1 class="main_title">{{self.title}}</h1></router-link>
+               <router-link to="/mypage"><span class="join">{{self.join}}</span></router-link>
+               <router-link to="/login"><span @click="login" class="login">{{self.login}}</span></router-link>
+             </template>
+            <template #sidebar >
+                <h3>광고판</h3>
+            </template>
+
+
 
             <template #content>
 
@@ -28,14 +43,24 @@
             </template>
 
         </Layout>
+
+        </div>
     </div>
 
 </template>
 
 <script>
     import Layout from "../components/common/Layout.vue"
+    import {mapState} from 'vuex'
     export default {
         name: "Home",
+        computed: {
+            ...mapState(
+                {
+                    auth: state => state.player.auth
+                }
+            )
+        },
         components : {Layout},
         data : ()=>{
             return {
@@ -51,6 +76,12 @@
             }
         },
         methods:{
+         logout(){
+             alert('로그아웃')
+         },
+        login(){
+
+        },
             aa:(i)=>{
                 switch (i) {
                     case '쓰기':
@@ -90,13 +121,13 @@
         list-style: none;
         font-style: italic;
     }
-    #main_title{
+    .main_title{
         text-align: center;
     }
-    #join{
+    .join{
         text-align: right;
     }
-    #login{
+    .login{
         text-align: left;
     }
 </style>

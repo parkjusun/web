@@ -10,6 +10,7 @@ import Search from "../components/member/Search";
 import Update from "../components/member/Update";
 import Delet from "../components/member/Delet";
 import VuexCounter from "../components/common/VuexCounter";
+import Mypage from "../components/member/Mypage";
 
 
 Vue.use(Router)
@@ -28,6 +29,7 @@ export default new Router({
         {path: '/delet',component:Delet},
         {path: '/Counter',component:Counter},
         {path: '/vuexCounter',component:VuexCounter},
+        {path: '/mypage',component:Mypage},
     ]
 })
 

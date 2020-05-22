@@ -1,65 +1,92 @@
 import axios from 'axios'
-import header from "vuetify/lib/components/VDataTable/mixins/header";
-
+import router from '../router'
 
 const  state = {
+    context:'http://localhost:3001/',
     player :{},
     fail: false,
     auth : false
 }
 
-const  mutations ={
-    LOGIN_COMIT (state,data) {
-        state.auth = true
-        state.player =data.player
-        localStorage.setItem('token',data.token)
-        localStorage.setItem('playerId',data.player.playerId)
-        if (data.player.auth === 'USER'){
-            alert('일반사용자')
-            // 일반사용자
-        }else {
-            alert('관리자')
-            // 관리자
-        }
 
-    },
-    join () {
-        alert('가입')
-    },
-
-
-
-}
 
 const getters ={
 
 }
 const actions = {
 
-    async login ({commit}){
+    async login ({commit},payload){
+        const url =state.context + `players/${payload.playerId}/access`
         const headers = {
-            'Content-Type': 'text/plain'
+            authorization: 'JWT fefege..',
+            Accept : 'application/json',
+            'Content-Type': 'application/json'
         };
-        axios.post('',player,header)
+        axios.post(url,payload,headers)
             .then(({data})=>{
+                if(data.result){
+                    commit('LOGIN_COMMIT', data)
 
-                commit('LOGIN_COMIT',data)
+                }
+                else{
+                    commit('FAIL_COMMIT')
+                }
             })
             .catch(()=>{
+                alert('서버 전송 실패')
                 state.fail =true
             })
     },
+    async logout({commit}){
+        commit('LOGOUT_COMMIT')
+    }
+    ,
     async join ({commit}){
         commit('join')
     },
 }
+const  mutations ={
+    LOGIN_COMMIT(state, data){
+        state.auth = true
+        state.player = data.player
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('playerId', data.player.playerId)
+        if(data.player.teamId !== 'K01'){
+            alert('일반 사용자')
+            router.push('/home')
+            console.log('aa')
+        }else{
+            alert('관리자')
+
+        }
+
+    },
+    FAIL_COMMIT(state){
+        state.fail = true
+        alert('상태:'+state.fail)
+    },
+    LOGOUT_COMMIT(state){
+        console.log('vv')
+        localStorage.clear()
+        state.auth = false
+        state.player ={}
+        router.push('/')
+
+    }
+    ,
+    join () {
+        alert('가입')
+    }
+
+
+
+}
 
 export default {
-    name:'player',
-    namespace:true,
+    name: 'player',
+    namespaced : true,
     state,
     actions,
-    getters,
-    mutations
-
+    mutations,
+    getters
 }
